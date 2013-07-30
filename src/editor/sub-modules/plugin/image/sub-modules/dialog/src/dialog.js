@@ -247,7 +247,8 @@ KISSY.add("editor/plugin/image/dialog", function (S, IO, Editor, Dialog4E, Tabs,
                         .html(self.cfg['extraHTML']);
                 }
                 var ke_image_up = content.one("." + prefixCls + "image-up"),
-                    sizeLimit = self.cfg && self.cfg['sizeLimit'];
+                    sizeLimit = self.cfg && self.cfg['sizeLimit'],
+                    sizeLimitTip=self.cfg && self.cfg['sizeLimitTip'];
 
                 self.fileInput = new Node("<input " +
                     "type='file' " +
@@ -263,7 +264,7 @@ KISSY.add("editor/plugin/image/dialog", function (S, IO, Editor, Dialog4E, Tabs,
                     "name='" + (self.cfg['fileInput'] || "Filedata") + "'/>")
                     .insertAfter(self.imgLocalUrl);
                 if (sizeLimit)
-                    warning = "单张图片容量不超过 " + (sizeLimit / 1000) + " M";
+                    warning = sizeLimitTip?("单张图片容量不超过 " + (sizeLimit / 1000) + " M"):S.substitute(sizeLimitTip,{sizeLimit:sizeLimit});
                 self.imgLocalUrl.val(warning);
                 self.fileInput.css("opacity", 0);
                 self.fileInput.on("mouseenter", function () {
